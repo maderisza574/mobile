@@ -22,7 +22,9 @@ export default function SplashScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Text>Find Event You love with Our</Text>
+      <Text style={{color: 'white', fontSize: 40}}>
+        Find Event You love with Our
+      </Text>
       <Image source={SplasImage} style={{width: 400, height: 400}} />
     </View>
   );

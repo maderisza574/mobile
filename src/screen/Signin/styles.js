@@ -19,6 +19,11 @@ export default StyleSheet.create({
   groupbutton: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginVertical: 15,
+    marginVertical: 30,
+  },
+  forgotbutton: {
+    color: 'blue',
+    marginLeft: 250,
+    marginBottom: 30,
   },
 });

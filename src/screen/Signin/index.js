@@ -4,7 +4,6 @@ import {
   Text,
   Button,
   TextInput,
-  StyleSheet,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -23,11 +22,31 @@ export default function Signin(props) {
   const navFinger = () => {
     props.navigation.navigate('FingerPrint');
   };
+  const navForgot = () => {
+    props.navigation.navigate('ForgotPassword');
+  };
   return (
     <View>
-      <Text>Signin Screen</Text>
-      <Text style={{fontFamily: 'Poppins-Black'}}>Login</Text>
-      <Text>Hi,Welcome back to Urticket</Text>
+      <Text
+        style={{
+          fontFamily: 'Poppins-Regular',
+          fontSize: 30,
+          color: 'black',
+          marginHorizontal: 30,
+          marginTop: 20,
+        }}>
+        Login
+      </Text>
+      <Text
+        style={{
+          fontFamily: 'Poppins-Regular',
+          fontSize: 15,
+          color: 'black',
+          marginBottom: 50,
+          marginHorizontal: 30,
+        }}>
+        Hi,Welcome back to Urticket
+      </Text>
       <TextInput
         style={styles.input}
         placeholder="Input Your Email"
@@ -40,8 +59,14 @@ export default function Signin(props) {
         defaultValue={text}
         onChangeText={newText => newText}
       />
-      <Text>Forgot Password?</Text>
-      <Text>Or sign in with</Text>
+      <Text
+        tittle="forgotbutton"
+        style={styles.forgotbutton}
+        onPress={navForgot}>
+        Forgot Password?
+      </Text>
+      <Button title="Login" onPress={handleLogin} />
+      <Text style={{marginLeft: 150, marginTop: 100}}>Or sign in with</Text>
       <View style={styles.groupbutton}>
         <View>
           <Image source={Google} />
@@ -53,7 +78,7 @@ export default function Signin(props) {
           <Image source={Finger} />
         </TouchableOpacity>
       </View>
-      <Button title="Login" onPress={handleLogin} />
+
       <TouchableOpacity style={styles.buttonSignup} onPress={navSignup}>
         <Text style={{color: 'white'}}>Signup</Text>
       </TouchableOpacity>

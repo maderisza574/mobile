@@ -19,7 +19,12 @@ export default function Home(props) {
         <Text style={styles.date}>16</Text>
         <Text style={styles.date}>17</Text>
       </View>
-      <Text>Home Screen</Text>
+
+      <View style={styles.containerdown}>
+        <View style={styles.eventContainer}>
+          <Text>Event For You</Text>
+        </View>
+      </View>
       <Button title="Detail Screen" onPress={navDetail} />
     </View>
   );
