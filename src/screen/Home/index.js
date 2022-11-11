@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Home(props) {
   const navDetail = () => props.navigation.navigate('Detail');
@@ -23,6 +24,7 @@ export default function Home(props) {
       <View style={styles.containerdown}>
         <View style={styles.eventContainer}>
           <Text>Event For You</Text>
+          <Icon name="list-ul" />
         </View>
       </View>
       <Button title="Detail Screen" onPress={navDetail} />
