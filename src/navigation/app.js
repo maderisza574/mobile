@@ -10,11 +10,12 @@ import Home from '../screen/Home';
 import Detail from '../screen/Detail';
 
 import Profile from '../screen/Profile';
+import DrawerContent from '../components/DrawerContent';
 
 function MenuNavigator() {
   return (
     // DAFTARKAN MENU YANG NANTINYA AKAN MASUK KE DALAM DRAWER DISINI
-    <Drawer.Navigator>
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Profile" component={Profile} />
       {/* MY BOOKING */}

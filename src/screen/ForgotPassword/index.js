@@ -5,7 +5,7 @@ import styles from './styles';
 export default function Profile(props) {
   return (
     <View>
-      <Text>Profile Screen</Text>
+      <Text>Forgot Password</Text>
     </View>
   );
 }

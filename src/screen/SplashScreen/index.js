@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
+import SplasImage from '../../assets/img/people.png';
+import styles from './styles';
 
 export default function SplashScreen(props) {
   console.log(props);
@@ -19,10 +21,9 @@ export default function SplashScreen(props) {
   };
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Splash Screen</Text>
+    <View style={styles.container}>
+      <Text>Find Event You love with Our</Text>
+      <Image source={SplasImage} style={{width: 400, height: 400}} />
     </View>
   );
 }
-
-const style = StyleSheet.create({});
