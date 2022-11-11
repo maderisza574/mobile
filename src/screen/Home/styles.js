@@ -4,6 +4,7 @@ export default StyleSheet.create({
   container: {flex: 1},
   sortDateContainer: {
     backgroundColor: '#222B45',
+    height: 110,
     width: '100%',
     flexDirection: 'row',
     padding: 20,
@@ -11,6 +12,9 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    marginTop: -30,
+    position: 'absolute',
+    zIndex: 1,
   },
   dateContainer: {alignItems: 'center'},
   date: {color: 'white'},
@@ -24,6 +28,8 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: -15,
+    marginTop: 50,
+    position: 'absolute',
+    zIndex: 2,
   },
 });

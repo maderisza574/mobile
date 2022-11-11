@@ -40,6 +40,7 @@ function MenuNavigator() {
           ),
         }}
       />
+
       {/* MY BOOKING */}
       {/* MY WISHLIST */}
     </Drawer.Navigator>
