@@ -11,8 +11,10 @@ import styles from './styles';
 import Google from '../../assets/img/btnGoogle.png';
 import Facebook from '../../assets/img/btnFacebook.png';
 import Finger from '../../assets/img/btnFinger.png';
+import Icon from 'react-native-vector-icons/Feather';
 export default function Signin(props) {
   const [text, setText] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const handleLogin = () => {
     props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
   };
@@ -24,6 +26,9 @@ export default function Signin(props) {
   };
   const navForgot = () => {
     props.navigation.navigate('ForgotPassword');
+  };
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
   return (
     <View>
@@ -53,12 +58,33 @@ export default function Signin(props) {
         defaultValue={text}
         onChangeText={newText => newText}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        defaultValue={text}
-        onChangeText={newText => newText}
-      />
+      <View style={{marginBottom: 20}}>
+        <View style={{position: 'relative'}}>
+          <TextInput
+            style={styles.input}
+            placeholder="password"
+            autoCapitalize="none"
+            secureTextEntry={showPassword ? false : true}
+            placeholderTextColor="#A0A3BD"
+          />
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              right: 0,
+              height: '100%',
+              paddingHorizontal: 12,
+              justifyContent: 'center',
+            }}
+            onPress={() => setShowPassword(!showPassword)}>
+            {showPassword ? (
+              <Icon name="eye-off" size={18} color="#3366FF" />
+            ) : (
+              <Icon name="eye" size={18} color="#A0A3BD" />
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <Text
         tittle="forgotbutton"
         style={styles.forgotbutton}
