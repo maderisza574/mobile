@@ -1,16 +1,16 @@
 import React from 'react';
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import HeaderDetail from '../../components/Header/detail';
 import styles from './styles';
 import Event from '../../assets/img/event.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 import Map from '../../assets/img/map.png';
 import {Button} from 'react-native-paper';
 
 export default function Detail(props) {
   const navBuy = () => {
-    props.navigation.navigate('ForgotPassword');
+    props.navigation.navigate('Order');
   };
   return (
     <ScrollView>

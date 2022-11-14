@@ -9,6 +9,7 @@ const Drawer = createDrawerNavigator();
 
 import Home from '../screen/Home';
 import Detail from '../screen/Detail';
+import Order from '../screen/Order';
 import MyBooking from '../screen/MyBooking';
 import MyWishlist from '../screen/MyWishlist';
 
@@ -85,6 +86,13 @@ export default function AppStackNavigator() {
         options={{headerShown: false, headerTransparent: true}}
       />
       {/* ORDER */}
+      <Stack.Screen
+        name="Order"
+        component={Order}
+        options={{
+          header: props => <HeaderDefault {...props} name="Checkout" />,
+        }}
+      />
       {/* PAYMENT */}
       {/* EDIT PROFILE */}
       {/* CHANGE PASSWORD */}
