@@ -27,7 +27,7 @@ function DrawerContent(props) {
           <View style={styles.avatar} />
           <View style={styles.biodata}>
             <Text style={styles.title}>Anonymous</Text>
-            <Text style={styles.caption}>@bagustea</Text>
+            <Text style={styles.caption}>@karmadbinkatab</Text>
           </View>
         </View>
         <DrawerItemList {...props} />

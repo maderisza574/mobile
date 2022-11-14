@@ -1,19 +1,19 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
-export default function DefaultHeader(props) {
-  const backScreen = () => {
-    // props.navigation.openDrawer();
+export default function DetailHeader(props) {
+  const openDrawer = () => {
+    props.navigation.goBack();
   };
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={backScreen} style={styles.section}>
-        <Text>BACK</Text>
+      <TouchableOpacity onPress={openDrawer}>
+        <Icon name="arrowleft" size={25} color={'black'} />
       </TouchableOpacity>
-      <View style={(styles.section, styles.sectionCenter)}>
-        <Text>{props.name}</Text>
+      <View>
+        <Icon name="hearto" size={25} color={'white'} />
       </View>
-      <View style={styles.section} />
     </View>
   );
 }
@@ -22,13 +22,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-  },
-  section: {
-    flex: 1,
-  },
-  sectionCenter: {
-    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    height: 55,
+    width: '100%',
+    // marginTop: -30,
+    zIndex: 3,
+    position: 'absolute',
   },
 });

@@ -50,7 +50,7 @@ function MenuNavigator() {
         options={{
           header: props => <HeaderDefault {...props} name="My Booking" />,
           drawerIcon: ({size, color}) => (
-            <Icon name="user" color={color} size={size} />
+            <Icon name="profile" color={color} size={size} />
           ),
         }}
       />
@@ -61,7 +61,7 @@ function MenuNavigator() {
         options={{
           header: props => <HeaderDefault {...props} name="My Wishlist" />,
           drawerIcon: ({size, color}) => (
-            <Icon name="user" color={color} size={size} />
+            <Icon name="heart" color={color} size={size} />
           ),
         }}
       />
@@ -82,7 +82,7 @@ export default function AppStackNavigator() {
       <Stack.Screen
         name="Detail"
         component={Detail}
-        options={{headerShown: false}}
+        options={{headerShown: false, headerTransparent: true}}
       />
       {/* ORDER */}
       {/* PAYMENT */}

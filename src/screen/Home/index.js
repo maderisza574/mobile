@@ -44,7 +44,20 @@ export default function Home(props) {
             <View style={{position: 'absolute', bottom: 30, left: 25}}>
               <Text style={{color: 'white'}}>Tanggal</Text>
               <Text style={{color: 'white'}}>Title</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={navDetail}>
+                <Text>GO</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.card}>
+            <Image
+              source={Event}
+              style={{width: '100%', height: '100%', borderRadius: 30}}
+            />
+            <View style={{position: 'absolute', bottom: 30, left: 25}}>
+              <Text style={{color: 'white'}}>Tanggal</Text>
+              <Text style={{color: 'white'}}>Title</Text>
+              <TouchableOpacity onPress={navDetail}>
                 <Text>GO</Text>
               </TouchableOpacity>
             </View>
