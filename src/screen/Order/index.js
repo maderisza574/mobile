@@ -123,7 +123,7 @@ export default function Order(props) {
         title="Payment Screen"
         onPress={() => {
           getDataBooking();
-          // props.navigation.navigate('Payment');
+          props.navigation.navigate('Payment');
         }}
       />
     </View>

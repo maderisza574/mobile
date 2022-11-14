@@ -12,6 +12,7 @@ import Detail from '../screen/Detail';
 import Order from '../screen/Order';
 import MyBooking from '../screen/MyBooking';
 import MyWishlist from '../screen/MyWishlist';
+import Payment from '../screen/Payment';
 
 import Profile from '../screen/Profile';
 
@@ -94,6 +95,13 @@ export default function AppStackNavigator() {
         }}
       />
       {/* PAYMENT */}
+      <Stack.Screen
+        name="Payment"
+        component={Payment}
+        options={{
+          header: props => <HeaderDefault {...props} name="Payment" />,
+        }}
+      />
       {/* EDIT PROFILE */}
       {/* CHANGE PASSWORD */}
     </Stack.Navigator>
