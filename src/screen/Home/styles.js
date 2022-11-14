@@ -33,4 +33,10 @@ export default StyleSheet.create({
     position: 'absolute',
     zIndex: 2,
   },
+  card: {
+    width: 160,
+    height: 276,
+    marginHorizontal: 15,
+    marginTop: 100,
+  },
 });

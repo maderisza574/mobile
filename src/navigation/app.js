@@ -9,6 +9,8 @@ const Drawer = createDrawerNavigator();
 
 import Home from '../screen/Home';
 import Detail from '../screen/Detail';
+import MyBooking from '../screen/MyBooking';
+import MyWishlist from '../screen/MyWishlist';
 
 import Profile from '../screen/Profile';
 
@@ -42,7 +44,27 @@ function MenuNavigator() {
       />
 
       {/* MY BOOKING */}
+      <Drawer.Screen
+        name="My Booking"
+        component={MyBooking}
+        options={{
+          header: props => <HeaderDefault {...props} name="My Booking" />,
+          drawerIcon: ({size, color}) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+      />
       {/* MY WISHLIST */}
+      <Drawer.Screen
+        name="My Wishlist"
+        component={MyWishlist}
+        options={{
+          header: props => <HeaderDefault {...props} name="My Wishlist" />,
+          drawerIcon: ({size, color}) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
