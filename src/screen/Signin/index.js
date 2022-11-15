@@ -38,7 +38,7 @@ export default function Signin(props) {
     try {
       // console.log(form);
       const result = await axios.post('/auth/login', form);
-      await AsyncStorage.setItem('userId', result.data.data.userId);
+      await AsyncStorage.setItem('userId', result.data.data.userid);
       await AsyncStorage.setItem('token', result.data.data.token);
       await AsyncStorage.setItem('refreshToken', result.data.data.refreshToken);
       alert(result.data.message);

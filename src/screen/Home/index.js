@@ -73,7 +73,7 @@ export default function Home(props) {
                 style={{width: '100%', height: '100%', borderRadius: 30}}
               />
               <View style={{position: 'absolute', bottom: 30, left: 25}}>
-                <Text style={{color: 'white'}}>{item.price}</Text>
+                <Text style={{color: 'white'}}>{item.dateTimeShow}</Text>
                 <Text style={{color: 'white'}}>{item.name}</Text>
                 <TouchableOpacity onPress={() => handleDetail(item.id)}>
                   <Text>GO</Text>

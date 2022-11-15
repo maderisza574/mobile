@@ -10,15 +10,31 @@ import {
 import {Checkbox} from 'react-native-paper';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/Feather';
+import axios from '../../utils/axios';
 
-export default function Signin(props) {
+export default function Signup(props) {
+  const [form, setForm] = useState({});
   const [checked, setChecked] = React.useState(false);
   const [text, setText] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  const handleChangeForm = (value, name) => {
+    setForm({...form, [name]: value});
+  };
 
+  const handleRegister = async () => {
+    try {
+      // console.log(form);
+      const result = await axios.post('/auth/register', form);
+      alert(result.data.message);
+      console.log(result.data);
+      props.navigation.replace('AppScreen', {screen: 'Signin'});
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSignup = () => {
     props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
   };
@@ -47,22 +63,26 @@ export default function Signin(props) {
       </Text>
       <TextInput
         style={styles.input}
+        name="username"
         placeholder="Full Name"
         defaultValue={text}
-        onChangeText={newText => newText}
+        onChangeText={form => handleChangeForm(form, 'username')}
       />
       <TextInput
         style={styles.input}
         placeholder="Email"
+        name="email"
         defaultValue={text}
-        onChangeText={newText => newText}
+        onChangeText={form => handleChangeForm(form, 'email')}
       />
       <View style={{marginBottom: 20}}>
         <View style={{position: 'relative'}}>
           <TextInput
             style={styles.input}
             placeholder="Password"
+            name="password"
             autoCapitalize="none"
+            onChangeText={form => handleChangeForm(form, 'password')}
             secureTextEntry={showPassword ? false : true}
             placeholderTextColor="#A0A3BD"
           />
@@ -83,7 +103,7 @@ export default function Signin(props) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{marginBottom: 20}}>
+      {/* <View style={{marginBottom: 20}}>
         <View style={{position: 'relative'}}>
           <TextInput
             style={styles.input}
@@ -108,7 +128,7 @@ export default function Signin(props) {
             )}
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginBottom: 50}}>
         <Checkbox
@@ -122,7 +142,7 @@ export default function Signin(props) {
       <Button
         style={{marginBottom: 100}}
         title="Signup"
-        onPress={handleSignup}
+        onPress={handleRegister}
       />
     </View>
   );
