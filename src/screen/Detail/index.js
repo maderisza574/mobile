@@ -18,6 +18,8 @@ export default function Detail(props) {
         <HeaderDetail {...props} />
         <Image source={Event} style={{width: 400, height: 700}} />
       </View>
+      {/* <Text style={{fontSize: 300}}>Lorem ipsum dolor ammet</Text> */}
+
       {/* <ScrollView> */}
       <View style={styles.containerdown}>
         <View style={styles.eventContainer}>
