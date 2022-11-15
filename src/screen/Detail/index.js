@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import HeaderDetail from '../../components/Header/detail';
 import styles from './styles';
@@ -8,24 +8,45 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Map from '../../assets/img/map.png';
 import {Button} from 'react-native-paper';
 import Avatar from '../../assets/img/avatargrup.png';
+import axios from '../../utils/axios';
+import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 export default function Detail(props) {
+  const [dataEvent, setDataEvent] = useState([]);
+  console.log(dataEvent);
+  const eventid = props.route.params.eventId;
+  // console.log(eventid);
   useEffect(() => {
-    console.log(props.route.params.productId);
+    getDataEvent();
+    // console.log(props.route.params.eventId);
   }, []);
   const navBuy = () => {
     props.navigation.navigate('Order');
+  };
+  const getDataEvent = async () => {
+    try {
+      const result = await axios.get(`/event/${eventid}`);
+      setDataEvent(result.data.data);
+      console.log(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <ScrollView>
       <View>
         <HeaderDetail {...props} />
-        <Image source={Event} style={{width: 400, height: 700}} />
+        <Image
+          source={{
+            uri: `https://res.cloudinary.com/maderisza/image/upload/v1663492332/${dataEvent[0]?.image}`,
+          }}
+          style={{width: 400, height: 700}}
+        />
         <View style={styles.tittlecard}>
-          <Text style={styles.bigtittlecard}>Sight & Sounds exhibition</Text>
+          <Text style={styles.bigtittlecard}>{dataEvent[0]?.name}</Text>
           <Text style={styles.thetittlecard}>
-            <Icon name="enviromento" size={15} style={styles.iconcard} />{' '}
-            Jakarta,Indonesia
+            <Icon name="enviromento" size={15} style={styles.iconcard} />
+            {dataEvent[0]?.location}
           </Text>
           <Text style={styles.thetittlecard}>
             <Icon
@@ -34,7 +55,7 @@ export default function Detail(props) {
               size={15}
               color={'red'}
             />
-            Wed,15 Nov, 04.00 PM
+            {dataEvent[0]?.dateTimeShow}
           </Text>
           <Text style={{color: 'white', marginTop: 30}}>Attendes</Text>
           <Image style={{marginTop: 10}} source={Avatar} />

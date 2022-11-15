@@ -10,13 +10,14 @@ import {
 } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Event from '../../assets/img/event.png';
+// import Event from '../../assets/img/event.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../utils/axios';
 
 export default function Home(props) {
   const [userId, setUserId] = useState('');
   const [data, setData] = useState([]);
+  // console.log(data.data.eventid);
   useEffect(() => {
     // checkStorage();
     getUserId();
@@ -29,16 +30,15 @@ export default function Home(props) {
 
   const getData = async () => {
     try {
-      const result = await axios.get(
-        'product?searchName=&sort=&limit=10&page=1&searchDateCreated=',
-      );
+      const result = await axios.get('event?name=coba&sort=ASC&');
       setData(result.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-  const handleDetail = id => {
-    props.navigation.navigate('Detail', {productId: id});
+  const handleDetail = eventid => {
+    console.log(eventid);
+    props.navigation.navigate('Detail', {eventId: eventid});
   };
   const navDetail = () => props.navigation.navigate('Detail');
   return (
@@ -67,21 +67,25 @@ export default function Home(props) {
           horizontal={true}
           data={data}
           renderItem={({item}) => (
-            <View style={styles.card} onPress={() => handleDetail(item.id)}>
+            <View
+              style={styles.card}
+              onPress={() => handleDetail(item.eventid)}>
               <Image
-                source={Event}
+                source={{
+                  uri: `https://res.cloudinary.com/maderisza/image/upload/v1663492332/${item.image}`,
+                }}
                 style={{width: '100%', height: '100%', borderRadius: 30}}
               />
               <View style={{position: 'absolute', bottom: 30, left: 25}}>
                 <Text style={{color: 'white'}}>{item.dateTimeShow}</Text>
                 <Text style={{color: 'white'}}>{item.name}</Text>
-                <TouchableOpacity onPress={() => handleDetail(item.id)}>
+                <TouchableOpacity onPress={() => handleDetail(item.eventid)}>
                   <Text>GO</Text>
                 </TouchableOpacity>
               </View>
             </View>
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.eventid}
         />
         {/* <ScrollView horizontal={true}>
           <View style={styles.card}>
