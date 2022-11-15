@@ -12,12 +12,16 @@ import Google from '../../assets/img/btnGoogle.png';
 import Facebook from '../../assets/img/btnFacebook.png';
 import Finger from '../../assets/img/btnFinger.png';
 import Icon from 'react-native-vector-icons/Feather';
+import axios from '../../utils/axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Signin(props) {
-  const [text, setText] = useState('');
+  const [form, setForm] = useState({});
+
+  // const [text, setText] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const handleLogin = () => {
-    props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
-  };
+  // const handleLogin = () => {
+  //   props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
+  // };
   const navSignup = () => {
     props.navigation.navigate('Signup');
   };
@@ -30,6 +34,24 @@ export default function Signin(props) {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  const handleLogin = async () => {
+    try {
+      // console.log(form);
+      const result = await axios.post('/auth/login', form);
+      await AsyncStorage.setItem('userId', result.data.data.userId);
+      await AsyncStorage.setItem('token', result.data.data.token);
+      await AsyncStorage.setItem('refreshToken', result.data.data.refreshToken);
+      alert(result.data.message);
+      console.log(result.data);
+      props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleChangeForm = (value, name) => {
+    setForm({...form, [name]: value});
+  };
+
   return (
     <View>
       <Text
@@ -55,8 +77,8 @@ export default function Signin(props) {
       <TextInput
         style={styles.input}
         placeholder="Input Your Email"
-        defaultValue={text}
-        onChangeText={newText => newText}
+        // defaultValue={form}
+        onChangeText={form => handleChangeForm(form, 'email')}
       />
       <View style={{marginBottom: 20}}>
         <View style={{position: 'relative'}}>
@@ -64,6 +86,7 @@ export default function Signin(props) {
             style={styles.input}
             placeholder="password"
             autoCapitalize="none"
+            onChangeText={form => handleChangeForm(form, 'password')}
             secureTextEntry={showPassword ? false : true}
             placeholderTextColor="#A0A3BD"
           />

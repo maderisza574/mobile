@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,40 @@ import {
   TouchableOpacity,
   Image,
   Button,
+  FlatList,
 } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Event from '../../assets/img/event.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from '../../utils/axios';
 
 export default function Home(props) {
+  const [userId, setUserId] = useState('');
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    // checkStorage();
+    getUserId();
+    getData();
+  }, []);
+  const getUserId = async () => {
+    const data = await AsyncStorage.getItem('userId');
+    setUserId(data);
+  };
+
+  const getData = async () => {
+    try {
+      const result = await axios.get(
+        'product?searchName=&sort=&limit=10&page=1&searchDateCreated=',
+      );
+      setData(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDetail = id => {
+    props.navigation.navigate('Detail', {productId: id});
+  };
   const navDetail = () => props.navigation.navigate('Detail');
   return (
     <View style={styles.container}>
@@ -35,7 +63,27 @@ export default function Home(props) {
           <Icon name="list-ul" />
         </View>
         {/* scrol view */}
-        <ScrollView horizontal={true}>
+        <FlatList
+          horizontal={true}
+          data={data}
+          renderItem={({item}) => (
+            <View style={styles.card} onPress={() => handleDetail(item.id)}>
+              <Image
+                source={Event}
+                style={{width: '100%', height: '100%', borderRadius: 30}}
+              />
+              <View style={{position: 'absolute', bottom: 30, left: 25}}>
+                <Text style={{color: 'white'}}>{item.price}</Text>
+                <Text style={{color: 'white'}}>{item.name}</Text>
+                <TouchableOpacity onPress={() => handleDetail(item.id)}>
+                  <Text>GO</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+          keyExtractor={item => item.id}
+        />
+        {/* <ScrollView horizontal={true}>
           <View style={styles.card}>
             <Image
               source={Event}
@@ -88,7 +136,7 @@ export default function Home(props) {
               </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
+        </ScrollView> */}
         {/* end scrol view */}
       </View>
       <Button title="Detail Screen" onPress={navDetail} />

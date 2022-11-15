@@ -1,7 +1,26 @@
 import {StyleSheet} from 'react-native';
+import {white} from 'react-native-paper/lib/typescript/styles/colors';
 
 export default StyleSheet.create({
   containerdown: {flex: 1},
+  tittlecard: {
+    position: 'absolute',
+    bottom: 10,
+    left: 30,
+    top: 300,
+  },
+  thetittlecard: {
+    color: 'white',
+    fontFamily: 'Poppins-Regular',
+  },
+  bigtittlecard: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 35,
+    color: 'white',
+  },
+  iconcard: {
+    color: '#FC1055',
+  },
   eventContainer: {
     backgroundColor: '#FCFCFC',
     width: '100%',
