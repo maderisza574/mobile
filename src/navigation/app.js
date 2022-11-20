@@ -13,7 +13,7 @@ import Order from '../screen/Order';
 import MyBooking from '../screen/MyBooking';
 import MyWishlist from '../screen/MyWishlist';
 import Payment from '../screen/Payment';
-
+import Counter from '../screen/Counter';
 import Profile from '../screen/Profile';
 
 import DrawerContent from '../components/DrawerContent';
@@ -64,6 +64,17 @@ function MenuNavigator() {
           header: props => <HeaderDefault {...props} name="My Wishlist" />,
           drawerIcon: ({size, color}) => (
             <Icon name="heart" color={color} size={size} />
+          ),
+        }}
+      />
+      {/* Counter */}
+      <Drawer.Screen
+        name="Counter"
+        component={Counter}
+        options={{
+          header: props => <HeaderDefault {...props} name="Counter App" />,
+          drawerIcon: ({size, color}) => (
+            <Icon name="bulb1" color={color} size={size} />
           ),
         }}
       />

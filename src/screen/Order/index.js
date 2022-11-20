@@ -1,6 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Button, Image} from 'react-native';
 import Seat from '../../assets/img/seat.png';
+import Reg from '../../assets/img/REG.png';
+import Vip from '../../assets/img/VIP.png';
+import Vvip from '../../assets/img/VVIP.png';
+import Counter from '../Counter';
+import styles from './styles';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default function Order(props) {
   const [listBooking, setListBooking] = useState([]);
@@ -117,15 +123,83 @@ export default function Order(props) {
 
   return (
     <View style={{alignItems: 'center'}}>
-      <Image source={Seat} />
-      <Text>{JSON.stringify(listBooking)}</Text>
-      <Button
-        title="Payment Screen"
-        onPress={() => {
-          getDataBooking();
-          props.navigation.navigate('Payment');
-        }}
-      />
+      <ScrollView>
+        <Image source={Seat} />
+        <Text>{JSON.stringify(listBooking)}</Text>
+        <View style={styles.tittlescren}>
+          <View>
+            <Text style={styles.ticketz}>Ticket</Text>
+          </View>
+          <View>
+            <Text style={styles.byprice}>By Price</Text>
+          </View>
+        </View>
+        {/* start ticket */}
+        <View style={styles.iconticket1}>
+          <View>
+            <Image source={Reg} style={{width: 30, height: 30}} />
+          </View>
+          <View style={{marginRight: 5, marginLeft: 10}}>
+            <Text>Section REG,Row 1</Text>
+            <Text>12 Seats available</Text>
+            <Text style={{marginTop: 35}}>Quantity</Text>
+          </View>
+          <View>
+            <Text>$15</Text>
+            <Text>per person</Text>
+          </View>
+        </View>
+        <View style={{marginTop: -35}}>
+          <Counter />
+        </View>
+        {/* end ticekt */}
+        {/* ticket 2 */}
+        <View style={styles.iconticket1}>
+          <View>
+            <Image source={Vip} style={{width: 30, height: 30}} />
+          </View>
+          <View style={{marginRight: 5, marginLeft: 10}}>
+            <Text>Section VIP,Row 1</Text>
+            <Text>12 Seats available</Text>
+            <Text style={{marginTop: 35}}>Quantity</Text>
+          </View>
+          <View>
+            <Text>$15</Text>
+            <Text>per person</Text>
+          </View>
+        </View>
+        <View style={{marginTop: -35}}>
+          <Counter />
+        </View>
+        {/* en ticket 2 */}
+        {/* ticket 3 */}
+        <View style={styles.iconticket1}>
+          <View>
+            <Image source={Vvip} style={{width: 30, height: 30}} />
+          </View>
+          <View style={{marginRight: 5, marginLeft: 10}}>
+            <Text>Section VVIP,Row 1</Text>
+            <Text>12 Seats available</Text>
+            <Text style={{marginTop: 35}}>Quantity</Text>
+          </View>
+          <View>
+            <Text>$15</Text>
+            <Text>per person</Text>
+          </View>
+        </View>
+        <View style={{marginTop: -35, marginBottom: 30}}>
+          <Counter />
+        </View>
+        {/* end ticket 3 */}
+
+        <Button
+          title="Payment Screen"
+          onPress={() => {
+            getDataBooking();
+            props.navigation.navigate('Payment');
+          }}
+        />
+      </ScrollView>
     </View>
   );
 }
