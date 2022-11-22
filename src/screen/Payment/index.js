@@ -38,7 +38,7 @@ export default function Payment(props) {
             marginBottom: 50,
           }}>
           <RadioButton
-            status={checked ? 'checked' : 'unchecked'}
+            status={checked1 ? 'checked' : 'unchecked'}
             onPress={() => {
               setChecked1(!checked1);
             }}
@@ -53,7 +53,7 @@ export default function Payment(props) {
             marginBottom: 50,
           }}>
           <RadioButton
-            status={checked ? 'checked' : 'unchecked'}
+            status={checked2 ? 'checked' : 'unchecked'}
             onPress={() => {
               setChecked2(!checked2);
             }}
@@ -68,7 +68,7 @@ export default function Payment(props) {
             marginBottom: 50,
           }}>
           <RadioButton
-            status={checked ? 'checked' : 'unchecked'}
+            status={checked3 ? 'checked' : 'unchecked'}
             onPress={() => {
               setChecked3(!checked3);
             }}

@@ -15,6 +15,9 @@ import MyWishlist from '../screen/MyWishlist';
 import Payment from '../screen/Payment';
 import Counter from '../screen/Counter';
 import Profile from '../screen/Profile';
+import Notification from '../screen/Notification';
+import EditProfile from '../screen/EditProfile';
+import ChangePassword from '../screen/ChangePassword';
 
 import DrawerContent from '../components/DrawerContent';
 import HeaderHome from '../components/Header/home';
@@ -75,6 +78,39 @@ function MenuNavigator() {
           header: props => <HeaderDefault {...props} name="Counter App" />,
           drawerIcon: ({size, color}) => (
             <Icon name="bulb1" color={color} size={size} />
+          ),
+        }}
+      />
+      {/* Counter */}
+      <Drawer.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          header: props => <HeaderDefault {...props} name="Counter App" />,
+          drawerIcon: ({size, color}) => (
+            <Icon name="notification" color={color} size={size} />
+          ),
+        }}
+      />
+      {/* Counter */}
+      <Drawer.Screen
+        name="Edit Profile"
+        component={EditProfile}
+        options={{
+          header: props => <HeaderDefault {...props} name="Edit Profile" />,
+          drawerIcon: ({size, color}) => (
+            <Icon name="notification" color={color} size={size} />
+          ),
+        }}
+      />
+      {/* Counter */}
+      <Drawer.Screen
+        name="Change Password"
+        component={ChangePassword}
+        options={{
+          header: props => <HeaderDefault {...props} name="Change Password" />,
+          drawerIcon: ({size, color}) => (
+            <Icon name="notification" color={color} size={size} />
           ),
         }}
       />

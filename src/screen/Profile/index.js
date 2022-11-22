@@ -6,15 +6,13 @@ import {
   Image,
   TextInput,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import {Button} from 'react-native-paper';
-import Ionic from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const EditProfile = ({route, navigation}) => {
-  // const {name, accountName, profileImage} = route.params;
-  // const TostMessage = () => {
-  //   ToastAndroid.show('Edited Sucessfully !', ToastAndroid.SHORT);
-  // };
+export default function Profile(props) {
+  const navEditProfile = () => props.navigation.navigate('EditProfile');
   return (
     <ScrollView>
       <View
@@ -39,10 +37,45 @@ const EditProfile = ({route, navigation}) => {
           <Text
             style={{
               color: '#3493D9',
-            }}
-          />
+            }}>
+            Jhon Tomson
+          </Text>
+          <Text
+            style={{
+              color: '#3493D9',
+            }}>
+            Enterpreneur.ID
+          </Text>
         </View>
         <View style={{padding: 10}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={{fontSize: 25, color: 'black'}}>Card</Text>
+            <TouchableOpacity style={{marginTop: -30}}>
+              <Image source={require('../../assets/img/Add.png')} />
+            </TouchableOpacity>
+          </View>
+          <ScrollView horizontal={true} style={{marginHorizontal: 15}}>
+            <View style={{marginRight: 15}}>
+              <Image
+                source={require('../../assets/img/creditcard.png')}
+                style={{width: 200, height: 150, borderRadius: 10}}
+              />
+            </View>
+            <View style={{marginRight: 15}}>
+              <Image
+                source={require('../../assets/img/creditcard.png')}
+                style={{width: 200, height: 150, borderRadius: 10}}
+              />
+            </View>
+            <View style={{marginRight: 15}}>
+              <Image
+                source={require('../../assets/img/creditcard.png')}
+                style={{width: 200, height: 150, borderRadius: 10}}
+              />
+            </View>
+          </ScrollView>
+
+          {/* Input Form */}
           <View>
             <Text
               style={{
@@ -164,9 +197,20 @@ const EditProfile = ({route, navigation}) => {
           </View>
         </View>
         <Button>Save</Button>
+        <TouchableOpacity>
+          <Icon
+            name="edit"
+            size={25}
+            color={'white'}
+            onPress={navEditProfile}
+          />
+          <Text>Edit Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="unlock" size={25} color={'white'} />
+          <Text>Change Password</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
-};
-
-export default EditProfile;
+}
