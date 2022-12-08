@@ -70,45 +70,12 @@ function MenuNavigator() {
           ),
         }}
       />
-      {/* Counter */}
-      <Drawer.Screen
-        name="Counter"
-        component={Counter}
-        options={{
-          header: props => <HeaderDefault {...props} name="Counter App" />,
-          drawerIcon: ({size, color}) => (
-            <Icon name="bulb1" color={color} size={size} />
-          ),
-        }}
-      />
-      {/* Counter */}
+      {/* notif local*/}
       <Drawer.Screen
         name="Notification"
         component={Notification}
         options={{
-          header: props => <HeaderDefault {...props} name="Counter App" />,
-          drawerIcon: ({size, color}) => (
-            <Icon name="notification" color={color} size={size} />
-          ),
-        }}
-      />
-      {/* Counter */}
-      <Drawer.Screen
-        name="Edit Profile"
-        component={EditProfile}
-        options={{
-          header: props => <HeaderDefault {...props} name="Edit Profile" />,
-          drawerIcon: ({size, color}) => (
-            <Icon name="notification" color={color} size={size} />
-          ),
-        }}
-      />
-      {/* Counter */}
-      <Drawer.Screen
-        name="Change Password"
-        component={ChangePassword}
-        options={{
-          header: props => <HeaderDefault {...props} name="Change Password" />,
+          header: props => <HeaderDefault {...props} name="Notification" />,
           drawerIcon: ({size, color}) => (
             <Icon name="notification" color={color} size={size} />
           ),
@@ -150,7 +117,21 @@ export default function AppStackNavigator() {
         }}
       />
       {/* EDIT PROFILE */}
+      <Stack.Screen
+        name="Edit Profile"
+        component={EditProfile}
+        options={{
+          header: props => <HeaderDefault {...props} name="Edit Profile" />,
+        }}
+      />
       {/* CHANGE PASSWORD */}
+      <Stack.Screen
+        name="Change Password"
+        component={ChangePassword}
+        options={{
+          header: props => <HeaderDefault {...props} name="Change Password" />,
+        }}
+      />
     </Stack.Navigator>
   );
 }

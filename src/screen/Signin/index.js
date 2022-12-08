@@ -14,7 +14,11 @@ import Finger from '../../assets/img/btnFinger.png';
 import Icon from 'react-native-vector-icons/Feather';
 import axios from '../../utils/axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {login} from '../../stores/actions/auth';
+import {useDispatch, useSelector} from 'react-redux';
 export default function Signin(props) {
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
   const [form, setForm] = useState({});
 
   // const [text, setText] = useState({});
@@ -37,7 +41,7 @@ export default function Signin(props) {
   const handleLogin = async () => {
     try {
       // console.log(form);
-      const result = await axios.post('/auth/login', form);
+      const result = await axios.post('auth/login', form);
       await AsyncStorage.setItem('userId', result.data.data.userid);
       await AsyncStorage.setItem('token', result.data.data.token);
       await AsyncStorage.setItem('refreshToken', result.data.data.refreshToken);
@@ -45,9 +49,23 @@ export default function Signin(props) {
       console.log(result.data);
       props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
+  // const handleLogin = async () => {
+  //   try {
+  //     const result = await dispatch(login(form));
+  //     await AsyncStorage.setItem('userId', result.data.data.userid);
+  //     await AsyncStorage.setItem('token', result.data.data.token);
+  //     await AsyncStorage.setItem('refreshToken', result.data.data.refreshToken);
+  //     setTimeout(() => {
+  //       alert(result.data.data.message);
+  //       props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
+  //     }, 3000);
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
   const handleChangeForm = (value, name) => {
     setForm({...form, [name]: value});
   };

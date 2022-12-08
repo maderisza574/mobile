@@ -14,7 +14,7 @@ export default function ChangePassword(props) {
           Old Password
         </Text>
         <TextInput
-          placeholder="password"
+          placeholder="Old Password"
           autoCapitalize="none"
           placeholderTextColor="#A0A3BD"
           style={{
@@ -35,7 +35,7 @@ export default function ChangePassword(props) {
           New Password
         </Text>
         <TextInput
-          placeholder="password"
+          placeholder="New Password"
           autoCapitalize="none"
           placeholderTextColor="#A0A3BD"
           style={{

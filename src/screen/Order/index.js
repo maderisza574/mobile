@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Image} from 'react-native';
+import {View, Text, StyleSheet, Button, Image, Linking} from 'react-native';
 import Seat from '../../assets/img/seat.png';
 import Reg from '../../assets/img/REG.png';
 import Vip from '../../assets/img/VIP.png';
@@ -7,9 +7,33 @@ import Vvip from '../../assets/img/VVIP.png';
 import Counter from '../Counter';
 import styles from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
+import axios from '../../utils/axios';
 
 export default function Order(props) {
   const [listBooking, setListBooking] = useState([]);
+  const databooking = {
+    userid: '36329683-e8ae-4e9e-9d58-1f2616036552',
+    eventid: '0bdf7f38-485c-42ca-8f99-7cc11789dbf6',
+    totalTicket: 1,
+    totalPayment: 200000,
+    paymentmethod: 'midtrans',
+    statuspayment: true,
+  };
+  // const [datacheckout, setDataCheckout] = useState({});
+  // console.log(datacheckout);
+  const handleorder = async () => {
+    try {
+      // console.log(form);
+      const result = await axios.post('/booking', databooking);
+      alert(result.data.message);
+      // console.log(result.data);
+      console.log(result.data.data.redirect_url);
+      // setDataCheckout(result.data.redirect_url);
+      Linking.openURL(result.data.data.redirect_url);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   useEffect(() => {
     getDataBooking();
@@ -192,13 +216,22 @@ export default function Order(props) {
         </View>
         {/* end ticket 3 */}
 
-        <Button
+        {/* <Button
           title="Payment Screen"
           onPress={() => {
             getDataBooking();
             props.navigation.navigate('Payment');
           }}
-        />
+        /> */}
+        <Button title="Payment Screen" onPress={handleorder} />
+        <View style={styles.container}>
+          <Button
+            title="Click me"
+            onPress={() => {
+              Linking.openURL('https://google.com');
+            }}
+          />
+        </View>
       </ScrollView>
     </View>
   );

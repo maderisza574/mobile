@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,17 +11,64 @@ import {
 } from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import {SelectList} from 'react-native-dropdown-select-list';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {getDataUser, updateDataUser} from '../../stores/actions/user';
+// import axios from '../../utils/axios';
 
 // import styles from './styles';
 
 export default function EditProfile(props) {
+  const [userid, setUserid] = useState('');
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.user.data[0]);
+  console.log(data);
+  const getMyStringValue = async () => {
+    try {
+      await AsyncStorage.getItem('userId');
+      const result = await AsyncStorage.getItem('userId');
+      setUserid(result);
+    } catch (e) {
+      // read error
+    }
+
+    // console.log('Done.');
+  };
+  const handleChangeForm = (value, name) => {
+    setForm({...form, [name]: value});
+  };
+  const [form, setForm] = useState({
+    name: '',
+    username: '',
+    gender: '',
+    profession: '',
+    nationality: '',
+    dateofBirth: '',
+    email: '',
+  });
+  const updateHandler = async () => {
+    try {
+      await dispatch(updateDataUser(userid, form));
+      await getDataUser(userid);
+      alert('sukses');
+    } catch (error) {
+      alert('error');
+    }
+  };
+  console.log(form);
+  useEffect(() => {
+    getMyStringValue();
+    dispatch(getDataUser(userid));
+  }, [userid]);
+  // console.log(userid);
+
   const [checked, setChecked] = React.useState(false);
   const [selected, setSelected] = React.useState('');
   const [selectedNation, setSelectedNation] = React.useState('');
   const [professionOpen, setProfessionOpen] = useState(false);
   const [nationalOpen, setNationalOpen] = useState(false);
 
-  const data = [
+  const dataJob = [
     {key: '1', value: 'Developer', disabled: true},
     {key: '2', value: 'IT Support'},
     {key: '3', value: 'UI/UX'},
@@ -57,8 +104,8 @@ export default function EditProfile(props) {
             Name
           </Text>
           <TextInput
-            placeholder="name"
-            defaultValue={'made'}
+            placeholder={data?.name}
+            onChangeText={form => handleChangeForm(form, 'name')}
             style={{
               fontSize: 16,
               backgroundColor: 'white',
@@ -67,6 +114,7 @@ export default function EditProfile(props) {
               borderRadius: 10,
               padding: 10,
               marginBottom: 10,
+              color: 'black',
             }}
           />
         </View>
@@ -78,8 +126,8 @@ export default function EditProfile(props) {
             Username
           </Text>
           <TextInput
-            placeholder="name"
-            defaultValue={'made'}
+            placeholder={data?.username}
+            onChangeText={form => handleChangeForm(form, 'username')}
             style={{
               fontSize: 16,
               backgroundColor: 'white',
@@ -99,29 +147,8 @@ export default function EditProfile(props) {
             Email
           </Text>
           <TextInput
-            placeholder="name"
-            defaultValue={'made'}
-            style={{
-              fontSize: 16,
-              backgroundColor: 'white',
-              borderColor: 'gray',
-              borderWidth: 1,
-              borderRadius: 10,
-              padding: 10,
-              marginBottom: 10,
-            }}
-          />
-        </View>
-        <View style={{paddingVertical: 10}}>
-          <Text
-            style={{
-              opacity: 0.5,
-            }}>
-            Phone
-          </Text>
-          <TextInput
-            placeholder="name"
-            defaultValue={'made'}
+            placeholder={data?.email}
+            onChangeText={form => handleChangeForm(form, 'email')}
             style={{
               fontSize: 16,
               backgroundColor: 'white',
@@ -147,6 +174,19 @@ export default function EditProfile(props) {
               justifyContent: 'space-evenly',
               marginLeft: -50,
             }}>
+            <TextInput
+              placeholder={data?.gender}
+              onChangeText={form => handleChangeForm(form, 'gender')}
+              style={{
+                fontSize: 16,
+                backgroundColor: 'white',
+                borderColor: 'gray',
+                borderWidth: 1,
+                borderRadius: 10,
+                padding: 10,
+                marginBottom: 10,
+              }}
+            />
             <View style={{flexDirection: 'row'}}>
               <RadioButton
                 status={checked ? 'checked' : 'unchecked'}
@@ -174,9 +214,22 @@ export default function EditProfile(props) {
             }}>
             Profession
           </Text>
+          <TextInput
+            placeholder={data?.profession}
+            onChangeText={form => handleChangeForm(form, 'profession')}
+            style={{
+              fontSize: 16,
+              backgroundColor: 'white',
+              borderColor: 'gray',
+              borderWidth: 1,
+              borderRadius: 10,
+              padding: 10,
+              marginBottom: 10,
+            }}
+          />
           <SelectList
             setSelected={val => setSelected(val)}
-            data={data}
+            data={dataJob}
             save="value"
           />
         </View>
@@ -187,6 +240,19 @@ export default function EditProfile(props) {
             }}>
             Nationality
           </Text>
+          <TextInput
+            placeholder={data?.nationality}
+            onChangeText={form => handleChangeForm(form, 'nationality')}
+            style={{
+              fontSize: 16,
+              backgroundColor: 'white',
+              borderColor: 'gray',
+              borderWidth: 1,
+              borderRadius: 10,
+              padding: 10,
+              marginBottom: 10,
+            }}
+          />
           <SelectList
             setSelectedNation={val => setSelectedNation(val)}
             data={dataNation}
@@ -201,9 +267,9 @@ export default function EditProfile(props) {
             Birthday Date
           </Text>
           <TextInput
-            placeholder="name"
-            defaultValue={'08/12/1998'}
-            editable={false}
+            onChangeText={form => handleChangeForm(form, 'dateofBirth')}
+            placeholder={data?.dateofBirth}
+            // editable={false}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -211,12 +277,7 @@ export default function EditProfile(props) {
             }}
           />
         </View>
-        <Button
-          title="Save"
-          onPress={() => {
-            props.navigation.navigate('Home');
-          }}
-        />
+        <Button title="Save" onPress={updateHandler} />
       </ScrollView>
     </View>
   );

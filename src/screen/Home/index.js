@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // import Event from '../../assets/img/event.png';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../utils/axios';
+import Notification from '../../utils/notif';
 
 export default function Home(props) {
   const [userId, setUserId] = useState('');
@@ -30,7 +31,7 @@ export default function Home(props) {
 
   const getData = async () => {
     try {
-      const result = await axios.get('event?name=coba&sort=ASC&');
+      const result = await axios.get('event?name=martin&sort=ASC&');
       setData(result.data.data);
     } catch (error) {
       console.log(error);
@@ -41,6 +42,16 @@ export default function Home(props) {
     props.navigation.navigate('Detail', {eventId: eventid});
   };
   const navDetail = () => props.navigation.navigate('Detail');
+  const handleScheduleNotification = () => {
+    console.log('Click Me !');
+    const setSchedule = {
+      title: 'Schedule Notification Title', // (optional)
+      message: 'Schedule Notification Message', // (required)
+      date: new Date(Date.now() + 5 * 1000), // in 15 secs
+    };
+    // [with schedule]
+    Notification.scheduleProductNotification(setSchedule);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.sortDateContainer}>
@@ -79,7 +90,9 @@ export default function Home(props) {
               <View style={{position: 'absolute', bottom: 30, left: 25}}>
                 <Text style={{color: 'white'}}>{item.dateTimeShow}</Text>
                 <Text style={{color: 'white'}}>{item.name}</Text>
-                <TouchableOpacity onPress={() => handleDetail(item.eventid)}>
+                <TouchableOpacity
+                  onPress={() => handleDetail(item.eventid)}
+                  onPressIn={handleScheduleNotification}>
                   <Text>GO</Text>
                 </TouchableOpacity>
               </View>
@@ -143,7 +156,7 @@ export default function Home(props) {
         </ScrollView> */}
         {/* end scrol view */}
       </View>
-      <Button title="Detail Screen" onPress={navDetail} />
+      {/* <Button title="Detail Screen" onPress={navDetail} /> */}
     </View>
   );
 }

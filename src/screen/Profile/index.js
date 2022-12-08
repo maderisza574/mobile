@@ -10,9 +10,15 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from '../../utils/axios';
 
 export default function Profile(props) {
-  const navEditProfile = () => props.navigation.navigate('EditProfile');
+  const navEditProfile = () => {
+    props.navigation.navigate('Edit Profile');
+  };
+  const navChangePassword = () => {
+    props.navigation.navigate('Change Password');
+  };
   return (
     <ScrollView>
       <View
@@ -76,139 +82,29 @@ export default function Profile(props) {
           </ScrollView>
 
           {/* Input Form */}
-          <View>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Name
-            </Text>
-            <TextInput
-              placeholder="name"
-              defaultValue={'made'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Username
-            </Text>
-            <TextInput
-              placeholder="accountname"
-              defaultValue={'nama'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Email
-            </Text>
-            <TextInput
-              placeholder="accountname"
-              defaultValue={'john@gmail.com'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Phone
-            </Text>
-            <TextInput
-              placeholder="accountname"
-              defaultValue={'081244878919'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Gender
-            </Text>
-            <TextInput
-              placeholder="accountname"
-              defaultValue={'male,female'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Profession
-            </Text>
-            <TextInput
-              placeholder="accountname"
-              defaultValue={'Enterpreneur'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
-          <View style={{paddingVertical: 10}}>
-            <Text
-              style={{
-                opacity: 0.5,
-              }}>
-              Nationality
-            </Text>
-            <TextInput
-              placeholder="accountname"
-              defaultValue={'Indonesia'}
-              style={{
-                fontSize: 16,
-                borderBottomWidth: 1,
-                borderColor: '#CDCDCD',
-              }}
-            />
-          </View>
         </View>
-        <Button>Save</Button>
-        <TouchableOpacity>
+        <TouchableOpacity
+          style={{flexDirection: 'row', marginTop: 20}}
+          onPress={navEditProfile}>
           <Icon
             name="edit"
             size={25}
-            color={'white'}
-            onPress={navEditProfile}
+            color={'black'}
+            style={{marginRight: 20, marginLeft: 10}}
           />
           <Text>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="unlock" size={25} color={'white'} />
+        <TouchableOpacity
+          style={{flexDirection: 'row', marginTop: 20, marginLeft: 10}}
+          onPress={navChangePassword}>
+          <Icon
+            name="unlock"
+            size={25}
+            color={'black'}
+            style={{marginRight: 20}}
+          />
           <Text>Change Password</Text>
+          <Button style={{marginTop: 235}}>Save</Button>
         </TouchableOpacity>
       </View>
     </ScrollView>

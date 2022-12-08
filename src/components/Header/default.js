@@ -1,14 +1,15 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function DefaultHeader(props) {
   const backScreen = () => {
-    // props.navigation.openDrawer();
+    props.navigation.goBack();
   };
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={backScreen} style={styles.section}>
-        <Text>BACK</Text>
+        <Icon name="arrowleft" size={25} color={'black'} />
       </TouchableOpacity>
       <View style={(styles.section, styles.sectionCenter)}>
         <Text>{props.name}</Text>
