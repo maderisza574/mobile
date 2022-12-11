@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItem,
@@ -9,8 +9,30 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector, useDispatch} from 'react-redux';
+import {getDataUser} from '../../stores/actions/user';
 
 function DrawerContent(props) {
+  const [userid, setUserid] = useState('');
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.user.data[0]);
+  console.log(data);
+  const getMyStringValue = async () => {
+    try {
+      await AsyncStorage.getItem('userId');
+      const result = await AsyncStorage.getItem('userId');
+      setUserid(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      getMyStringValue();
+      dispatch(getDataUser(userid));
+    });
+  }, [userid]);
+
   const handleLogout = async () => {
     try {
       alert('Logout');
@@ -24,10 +46,23 @@ function DrawerContent(props) {
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
         <View style={styles.containerProfile}>
-          <View style={styles.avatar} />
+          <View>
+            <Image
+              source={
+                data?.image
+                  ? {
+                      uri: `https://res.cloudinary.com/maderisza/image/upload/v1663492332/${
+                        data?.image.split('.')[0]
+                      }`,
+                    }
+                  : require('../../assets/img/Add.png')
+              }
+              style={{width: 40, height: 40, borderRadius: 100}}
+            />
+          </View>
           <View style={styles.biodata}>
-            <Text style={styles.title}>Anonymous</Text>
-            <Text style={styles.caption}>@karmadbinkatab</Text>
+            <Text style={styles.title}>{data?.name}</Text>
+            <Text style={styles.caption}>{data?.username}</Text>
           </View>
         </View>
         <DrawerItemList {...props} />

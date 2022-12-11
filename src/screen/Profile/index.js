@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,9 +10,33 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import axios from '../../utils/axios';
-
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getDataUser} from '../../stores/actions/user';
 export default function Profile(props) {
+  const [userid, setUserid] = useState('');
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.user.data[0]);
+  // console.log(data.username);
+  const getMyStringValue = async () => {
+    try {
+      await AsyncStorage.getItem('userId');
+      const result = await AsyncStorage.getItem('userId');
+      setUserid(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      getMyStringValue();
+      dispatch(getDataUser(userid));
+    });
+  }, [userid]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getDataUser())
+  // });
   const navEditProfile = () => {
     props.navigation.navigate('Edit Profile');
   };
@@ -37,20 +61,28 @@ export default function Profile(props) {
         />
         <View style={{padding: 20, alignItems: 'center'}}>
           <Image
-            source={require('../../assets/img/event.png')}
+            source={
+              data?.image
+                ? {
+                    uri: `https://res.cloudinary.com/maderisza/image/upload/v1663492332/${
+                      data?.image.split('.')[0]
+                    }`,
+                  }
+                : require('../../assets/img/Add.png')
+            }
             style={{width: 80, height: 80, borderRadius: 100}}
           />
           <Text
             style={{
               color: '#3493D9',
             }}>
-            Jhon Tomson
+            {data?.username}
           </Text>
           <Text
             style={{
               color: '#3493D9',
             }}>
-            Enterpreneur.ID
+            {data?.profession}
           </Text>
         </View>
         <View style={{padding: 10}}>
