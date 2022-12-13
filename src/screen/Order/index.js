@@ -4,36 +4,68 @@ import Seat from '../../assets/img/seat.png';
 import Reg from '../../assets/img/REG.png';
 import Vip from '../../assets/img/VIP.png';
 import Vvip from '../../assets/img/VVIP.png';
-import Counter from '../Counter';
+// import Counter from '../Counter';
 import styles from './styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import axios from '../../utils/axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Order(props) {
+  // console.log(props.route.params.dataDetailEvent);
+  const [userid, setUserid] = useState('');
   const [listBooking, setListBooking] = useState([]);
+  const [count, setCount] = useState(0);
+  const [countVip, setCountVip] = useState(0);
+  const [countVvip, setCountVvip] = useState(0);
+  const dataEvent = props.route.params.dataDetailEvent;
+  const totalCount = count + countVip + countVvip;
+  const Regu = dataEvent[0]?.price;
+  const Vip = dataEvent[0]?.price * 2;
+  const Vvip = dataEvent[0]?.price * 3;
+  const totalRegu = Regu * count;
+  const totalVip = Vip * countVip;
+  const totalVvip = Vvip * countVvip;
+  const totalAll = totalRegu + totalVip + totalVvip;
+
+  // console.log(dataEvent[0]?.category);
+
+  useEffect(() => {
+    getMyStringValue();
+  });
+  const getMyStringValue = async () => {
+    try {
+      await AsyncStorage.getItem('userId');
+      const result = await AsyncStorage.getItem('userId');
+      setUserid(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const databooking = {
-    userid: '36329683-e8ae-4e9e-9d58-1f2616036552',
-    eventid: '0bdf7f38-485c-42ca-8f99-7cc11789dbf6',
-    totalTicket: 1,
-    totalPayment: 200000,
+    userid: userid,
+    eventid: dataEvent[0]?.eventid,
+    totalTicket: totalCount,
+    totalPayment: totalAll,
     paymentmethod: 'midtrans',
     statuspayment: true,
   };
+  console.log(databooking);
   // const [datacheckout, setDataCheckout] = useState({});
   // console.log(datacheckout);
-  const handleorder = async () => {
-    try {
-      // console.log(form);
-      const result = await axios.post('/booking', databooking);
-      alert(result.data.message);
-      // console.log(result.data);
-      console.log(result.data.data.redirect_url);
-      // setDataCheckout(result.data.redirect_url);
-      Linking.openURL(result.data.data.redirect_url);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+  // const handleorder = async () => {
+  //   try {
+  //     // console.log(form);
+  //     const result = await axios.post('/booking', databooking);
+  //     alert(result.data.message);
+  //     // console.log(result.data);
+  //     console.log(result.data.data.redirect_url);
+  //     // setDataCheckout(result.data.redirect_url);
+  //     Linking.openURL(result.data.data.redirect_url);
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
 
   useEffect(() => {
     getDataBooking();
@@ -149,7 +181,7 @@ export default function Order(props) {
     <View style={{alignItems: 'center'}}>
       <ScrollView>
         <Image source={Seat} />
-        <Text>{JSON.stringify(listBooking)}</Text>
+        {/* <Text>{JSON.stringify(listBooking)}</Text> */}
         <View style={styles.tittlescren}>
           <View>
             <Text style={styles.ticketz}>Ticket</Text>
@@ -169,13 +201,31 @@ export default function Order(props) {
             <Text style={{marginTop: 35}}>Quantity</Text>
           </View>
           <View>
-            <Text>$15</Text>
+            <Text>Rp.{Regu}</Text>
             <Text>per person</Text>
           </View>
         </View>
-        <View style={{marginTop: -35}}>
-          <Counter />
+        {/* button */}
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{fontSize: 18}}>{count}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              title="-"
+              onPress={() => {
+                setCount(count - 1);
+              }}
+            />
+            <Button title="Reset" onPress={() => setCount(0)} />
+            <Button
+              title="+"
+              onPress={() => {
+                setCount(count + 1);
+              }}
+            />
+          </View>
         </View>
+        {/* end button */}
+
         {/* end ticekt */}
         {/* ticket 2 */}
         <View style={styles.iconticket1}>
@@ -188,13 +238,36 @@ export default function Order(props) {
             <Text style={{marginTop: 35}}>Quantity</Text>
           </View>
           <View>
-            <Text>$15</Text>
+            <Text>Rp{Vip}</Text>
             <Text>per person</Text>
           </View>
         </View>
-        <View style={{marginTop: -35}}>
-          <Counter />
+        {/* button */}
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 10,
+          }}>
+          <Text style={{fontSize: 18}}>{countVip}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              title="-"
+              onPress={() => {
+                setCountVip(countVip - 1);
+              }}
+            />
+            <Button title="Reset" onPress={() => setCountVip(0)} />
+            <Button
+              title="+"
+              onPress={() => {
+                setCountVip(countVip + 1);
+              }}
+            />
+          </View>
         </View>
+        {/* end button */}
         {/* en ticket 2 */}
         {/* ticket 3 */}
         <View style={styles.iconticket1}>
@@ -207,13 +280,36 @@ export default function Order(props) {
             <Text style={{marginTop: 35}}>Quantity</Text>
           </View>
           <View>
-            <Text>$15</Text>
+            <Text>Rp.{Vvip}</Text>
             <Text>per person</Text>
           </View>
         </View>
-        <View style={{marginTop: -35, marginBottom: 30}}>
-          <Counter />
+        {/* button */}
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 10,
+          }}>
+          <Text style={{fontSize: 18}}>{countVvip}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              title="-"
+              onPress={() => {
+                setCountVvip(countVvip - 1);
+              }}
+            />
+            <Button title="Reset" onPress={() => setCountVvip(0)} />
+            <Button
+              title="+"
+              onPress={() => {
+                setCountVvip(countVvip + 1);
+              }}
+            />
+          </View>
         </View>
+        {/* end button */}
         {/* end ticket 3 */}
 
         {/* <Button
@@ -223,7 +319,14 @@ export default function Order(props) {
             props.navigation.navigate('Payment');
           }}
         /> */}
-        <Button title="Payment Screen" onPress={handleorder} />
+        <Button
+          title="Payment Screen"
+          onPress={() => {
+            props.navigation.navigate('Payment', {
+              detailDataBooking: databooking,
+            });
+          }}
+        />
         <View style={styles.container}>
           <Button
             title="Click me"

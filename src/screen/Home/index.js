@@ -14,24 +14,34 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../utils/axios';
 import Notification from '../../utils/notif';
+import {TextInput} from 'react-native-paper';
 
 export default function Home(props) {
   const [userId, setUserId] = useState('');
   const [data, setData] = useState([]);
-  // console.log(data.data.eventid);
-  useEffect(() => {
-    // checkStorage();
-    getUserId();
-    getData();
-  }, []);
+  const [keyword, setKeyword] = useState('');
+  const [searchName, setSearchName] = useState('');
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const [date, setDate] = useState('');
+  const [asc, setAsc] = useState('asc');
+  const [sort, setSort] = useState('');
+
   const getUserId = async () => {
     const data = await AsyncStorage.getItem('userId');
     setUserId(data);
   };
 
+  useEffect(() => {
+    getUserId();
+    getData();
+  }, []);
+  useEffect(() => {
+    getData();
+  }, [page, searchName, date, sort, asc]);
   const getData = async () => {
     try {
-      const result = await axios.get('event?name=martin&sort=ASC&');
+      const result = await axios.get(`event?name=${searchName}&sort=ASC&`);
       setData(result.data.data);
     } catch (error) {
       console.log(error);
@@ -52,6 +62,10 @@ export default function Home(props) {
     // [with schedule]
     Notification.scheduleProductNotification(setSchedule);
   };
+  const handleSearch = dataSearch => {
+    setSearchName(dataSearch);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.sortDateContainer}>
@@ -72,6 +86,16 @@ export default function Home(props) {
         <View style={styles.eventContainer}>
           <Text>Event For You</Text>
           <Icon name="list-ul" />
+          <View style={{position: 'absolute'}}>
+            <TextInput
+              style={styles.search}
+              placeholder="Search Event Here..."
+              onChangeText={text => setSearchName(text)}
+              onSubmitEditing={() => handleSearch(searchName)}
+              placeholderTextColor="#DEDEDE"
+              returnKeyType="search"
+            />
+          </View>
         </View>
         {/* scrol view */}
         <FlatList

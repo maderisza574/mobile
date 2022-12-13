@@ -12,6 +12,7 @@ import axios from '../../utils/axios';
 import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 export default function Detail(props) {
+  console.log(props);
   const [dataEvent, setDataEvent] = useState([]);
   console.log(dataEvent);
   const eventid = props.route.params.eventId;
@@ -21,7 +22,7 @@ export default function Detail(props) {
     // console.log(props.route.params.eventId);
   }, []);
   const navBuy = () => {
-    props.navigation.navigate('Order');
+    props.navigation.navigate('Order', {dataDetailEvent: dataEvent});
   };
   const getDataEvent = async () => {
     try {
