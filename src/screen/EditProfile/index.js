@@ -31,6 +31,8 @@ export default function EditProfile(props) {
   const [image, setImage] = useState('');
   const dispatch = useDispatch();
   const data = useSelector(state => state.user.data[0]);
+  const [checked, setChecked] = useState(data?.gender);
+  console.log(checked);
 
   const getMyStringValue = async () => {
     try {
@@ -49,7 +51,7 @@ export default function EditProfile(props) {
   const [form, setForm] = useState({
     name: '',
     username: '',
-    gender: '',
+    gender: checked,
     profession: '',
     nationality: '',
     dateofBirth: '',
@@ -288,11 +290,36 @@ export default function EditProfile(props) {
           <View
             style={{
               flexDirection: 'row',
+              marginTop: 10,
+              padding: 10,
+              paddingLeft: 10,
+            }}>
+            <View style={{flexDirection: 'row', marginRight: 10}}>
+              <RadioButton
+                value="Man"
+                status={checked === 'Man' ? 'checked' : 'unchecked'}
+                onPress={() => setChecked('Man')}
+                defaulChecked
+              />
+              <Text style={{marginTop: 10}}>Man</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <RadioButton
+                value="Woman"
+                status={checked === 'Woman' ? 'checked' : 'unchecked'}
+                onPress={() => setChecked('Woman')}
+              />
+              <Text style={{marginTop: 10}}>Woman</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
               marginTop: 20,
               justifyContent: 'space-evenly',
               marginLeft: -50,
             }}>
-            <TextInput
+            {/* <TextInput
               placeholder={data?.gender}
               onChangeText={form => handleChangeForm(form, 'gender')}
               style={{
@@ -304,7 +331,7 @@ export default function EditProfile(props) {
                 padding: 10,
                 marginBottom: 10,
               }}
-            />
+            /> */}
           </View>
         </View>
         <View style={{paddingVertical: 10}}>
