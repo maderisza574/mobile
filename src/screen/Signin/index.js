@@ -49,7 +49,7 @@ export default function Signin(props) {
       console.log(result.data);
       props.navigation.replace('AppScreen', {screen: 'MenuNavigator'});
     } catch (error) {
-      console.log(error.response);
+      alert(error.response.data.message);
     }
   };
   // const handleLogin = async () => {

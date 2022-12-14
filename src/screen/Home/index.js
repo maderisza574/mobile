@@ -38,10 +38,12 @@ export default function Home(props) {
   }, []);
   useEffect(() => {
     getData();
-  }, [page, searchName, date, sort, asc]);
+  }, [searchName]);
   const getData = async () => {
     try {
-      const result = await axios.get(`event?name=${searchName}&sort=ASC&`);
+      const result = await axios.get(
+        `event?page=&limit=&searchName=${searchName}&sort=`,
+      );
       setData(result.data.data);
     } catch (error) {
       console.log(error);
@@ -65,7 +67,9 @@ export default function Home(props) {
   const handleSearch = dataSearch => {
     setSearchName(dataSearch);
   };
-
+  const navAll = () => {
+    props.navigation.navigate('All Event');
+  };
   return (
     <View style={styles.container}>
       <View style={styles.sortDateContainer}>
@@ -85,7 +89,9 @@ export default function Home(props) {
       <View style={styles.containerdown}>
         <View style={styles.eventContainer}>
           <Text>Event For You</Text>
-          <Icon name="list-ul" />
+          <TouchableOpacity onPress={navAll}>
+            <Icon name="list-ul" />
+          </TouchableOpacity>
           <View style={{position: 'absolute'}}>
             <TextInput
               style={styles.search}

@@ -21,6 +21,7 @@ import ChangePassword from '../screen/ChangePassword';
 import DrawerContent from '../components/DrawerContent';
 import HeaderHome from '../components/Header/home';
 import HeaderDefault from '../components/Header/default';
+import AllEvent from '../screen/AllEvent';
 
 function MenuNavigator() {
   return (
@@ -129,6 +130,14 @@ export default function AppStackNavigator() {
         component={ChangePassword}
         options={{
           header: props => <HeaderDefault {...props} name="Change Password" />,
+        }}
+      />
+      {/* All Event */}
+      <Stack.Screen
+        name="All Event"
+        component={AllEvent}
+        options={{
+          header: props => <HeaderDefault {...props} name="All Event" />,
         }}
       />
     </Stack.Navigator>
