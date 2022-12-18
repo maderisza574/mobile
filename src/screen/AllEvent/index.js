@@ -32,7 +32,7 @@ export default function AllEvent(props) {
     try {
       if (page <= totalPage) {
         const result = await axios.get(
-          `event?page=${page}&limit=&searchName=${searchName}&sort=${asc}`,
+          `event?page=${page}&limit=6&searchName=${searchName}&sort=${asc}`,
           // `event?page=${page}&limit=&name=${searchName}&sort=ASC`,
         );
         if (page === 1) {
